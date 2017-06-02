@@ -1,30 +1,68 @@
-var GroceryList = (props) => (
+var TodoList = (props) => (
   <ul>
-    <GroceryListItem groceries = {props.groceries}/> 
-    <GroceryListItem groceries = {props.groceries}/> 
+    {props.todos.map(todo =>
+      <TodoListItem todo={todo} />
+    )}
   </ul>
 );
 
-// Here we create a `TodoList` component
-var TodoList = (props) => (
+var GroceryList = (props) => (
   <ul>
-    <li>{props.todos[0]}</li>
-    <li>{props.todos[1]}</li>
-    <li>{props.todos[2]}</li>
+    {props.groceries.map(grocery =>
+      <GroceryListItem grocery={grocery} />
+    )}
   </ul>
 );
+
+// A class component can be defined as an ES6 class
+// that extends the base Component class included in the React library
+class GroceryListItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <li>{this.props.grocery}</li>
+    );
+  }
+}
+
+
+// A class component can be defined as an ES6 class
+// that extends the base Component class included in the React library
+class TodoListItem extends React.Component {
+  // A `constructor` method is expected on all ES6 classes
+  // When React instantiates the component,
+  // it will pass `props` to the constructor
+  constructor(props) {
+    // Equivalent to ES5's React.Component.call(this, props)
+    super(props);
+  }
+  // Every class component must have a `render` method
+  // Stateless functional components are pretty much just this method
+  render() {
+    // `props` is no longer passed as an argument,
+    // but instead accessed with `this.props`
+    return (
+      <li>{this.props.todo}</li>
+    );
+  }
+}
 
 var App = () => (
   <div>
     <h2>My Todo List</h2>
     <TodoList todos={['Learn React', 'Crush Recast.ly', 'Maybe sleep']}/>
-    <GroceryList groceries={['Apples', 'Banana']}/>
+    <GroceryList groceries={['Popcorn', 'Cherries', 'Cucumbers']}/>
   </div>
-);
-
-var GroceryListItem = (props) => (
-  <li>{props.groceries[0]}</li>  
 );
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+
+
+
+
+
